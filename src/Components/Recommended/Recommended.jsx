@@ -11,12 +11,13 @@ import thumbnail8 from '../../assets/thumbnail8.png'
 import { useEffect, useState } from 'react'
 import { viewCounter } from '../../viewCounter'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 function Recommended({ categoryId }) {
   const [data, setData] = useState();
 
   const recommedData = async () => {
-    const video_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${categoryId===0?28 :categoryId}&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`;
+    const video_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${categoryId===0?20 :categoryId}&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`;
     await fetch(video_url).then(response => response.json()).then(data => setData(data.items))
   }
 
@@ -31,14 +32,14 @@ function Recommended({ categoryId }) {
       {
         data?.map((item, index) => {
           return (
-            <div key={index} className="side-video-list">
+            <Link to={`/video/${item?.snippet?.categoryId}/${item?.id}`} key={index} className="side-video-list">
               <img src={item.snippet.thumbnails.medium.url} alt="" />
               <div className="vid-info">
                 <h4>{item.snippet.localized.title}</h4>
                 <p>{item.snippet.channelTitle}</p>
                 <p>{viewCounter(item.statistics.viewCount)} views &bull; {moment(item.snippet.publishedAt).fromNow()}</p>
               </div>
-            </div>
+            </Link>
           )
         })
       }
