@@ -83,8 +83,12 @@
 }
 
 .vid-description p{
+  white-space: pre-wrap;
   color: #333;
   font-size: 14px;
+}
+.vid-description p a{
+  color: blue;
 }
 
 .vid-description hr{
