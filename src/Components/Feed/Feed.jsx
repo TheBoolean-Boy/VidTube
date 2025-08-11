@@ -17,8 +17,8 @@ function Feed({ category }) {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
-    const video_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`;
-    await fetch(video_url).then(response => response.json()).then(data => setData(data.items))
+    const feed_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`;
+    await fetch(feed_url).then(response => response.json()).then(data => setData(data.items))
   }
 
   useEffect(() => {

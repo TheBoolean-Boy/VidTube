@@ -15,6 +15,7 @@ import ReactLinkify from 'react-linkify'
 function PlayVideo({videoId}) {
   const [videodata, setVideodata] = useState();
   const [channelData, setChannelData] = useState();
+  const [commentData, setCommentData] = useState();
 
   const fetchVideoData = async () =>{
     const api_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`
@@ -27,7 +28,12 @@ function PlayVideo({videoId}) {
     await fetch(api_url).then( response => response.json()).then( data => setChannelData(data.items[0]))
 
   }
-  
+
+  const fetchComment = async () => {
+    const comment_url =  `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=_${videoId}VB39Jo8mAQ&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`
+    await fetch(comment_url).then(response => response.json()).then(data => setCommentData(data.items))
+  }
+
   useEffect ( () => {
     fetchVideoData();
   },[videoId])
@@ -58,14 +64,13 @@ function PlayVideo({videoId}) {
         <img src={channelData?.snippet?.thumbnails?.medium?.url} alt="" />
         <div>
           <p>{videodata?.snippet?.channelTitle}</p>
-          <span>1M Subscribers</span>
+          <span>{likeCounter(channelData?.statistics?.subscriberCount)}</span>
         </div>
         <button>Subscribe</button>
       </div>
 
       <div className="vid-description">
         <p> <ReactLinkify >{videodata?.snippet?.description}</ReactLinkify></p>
-        <p>Subscribe GreatStack to Watch More Tutorials on web development</p>
         <hr />
         <h4>{videodata?.statistics?.commentCount} Comments</h4>
         <div className="comment">
@@ -80,40 +85,7 @@ function PlayVideo({videoId}) {
             </div>
           </div>
         </div>
-        <div className="comment">
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Jack Nicholson <span>1 day ago</span></h3>
-            <p>A global computer network providing a variety of information and cc of interconnected networks using standardized communication protocols.</p>
-            <div className="comment-action">
-              <img src={like} alt="" />
-              <span>244</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div><div className="comment">
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Jack Nicholson <span>1 day ago</span></h3>
-            <p>A global computer network providing a variety of information and cc of interconnected networks using standardized communication protocols.</p>
-            <div className="comment-action">
-              <img src={like} alt="" />
-              <span>244</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div><div className="comment">
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Jack Nicholson <span>1 day ago</span></h3>
-            <p>A global computer network providing a variety of information and cc of interconnected networks using standardized communication protocols.</p>
-            <div className="comment-action">
-              <img src={like} alt="" />
-              <span>244</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div>
+        
       </div>
 
 

@@ -5,14 +5,15 @@ import './Video.css'
 
 
 const Video = () =>{
-  const {videoId, setVideoId} = useParams();
+  const {videoId} = useParams();
+  const {categoryId} = useParams();
   return(
     <div className="play-container">
       <PlayVideo videoId={videoId} />
-      <Recommended />
+      <Recommended categoryId={categoryId} />
     </div>
       
   )
 }
 
-export default Video;
+export default Video; 
