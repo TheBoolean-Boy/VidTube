@@ -1,4 +1,4 @@
-# Educity
+# VidTube
 <hr />
 <h1>Implementing various react features</h1>
 <br />
