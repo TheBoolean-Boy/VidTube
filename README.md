@@ -10,5 +10,5 @@
 <br/>
 <h2>Step 2</h2> <h3>Run npm install inside your integrated terminal</h3>
 <br />
-<h2>Step 3</h2><h3>Run npm run dev inside your itegrated terminal</h3>
+<h2>Step 3</h2><h3>Run npm run dev inside your integrated terminal</h3>
 
